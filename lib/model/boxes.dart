@@ -1,4 +1,4 @@
-import 'package:expenses/expenese_model.dart';
+import 'package:expenses/model/expenese_model.dart';
 import 'package:hive/hive.dart';
 
 class Boxes {
@@ -7,4 +7,8 @@ class Boxes {
 
 class Stat {
   static Box getStatic() => Hive.box('static');
+}
+
+class Name  {
+  static Box getName() => Hive.box('name');
 }

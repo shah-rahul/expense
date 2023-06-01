@@ -1,11 +1,11 @@
-
-import 'package:expenses/expenese_model.dart';
-import 'package:expenses/single_item.dart';
+import 'package:expenses/model/expenese_model.dart';
+import 'package:expenses/screens/chartScreen.dart';
+import 'package:expenses/widgets/single_item.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-import 'boxes.dart';
+import '../model/boxes.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -122,6 +122,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    var name = Name.getName().get("name");
+
     return Scaffold(
       body: Column(
         children: [
@@ -189,46 +191,55 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ],
                       ),
-                      Text("welcome joshua",
+                      Text("welcome $name",
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: 25,
                               fontWeight: FontWeight.bold)),
                     ],
                   )),
-              Column(
-                children: [
-                  Container(
-                    height: MediaQuery.of(context).size.height * 0.2,
-                  ),
-                  Container(
-                    padding: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height * 0.2,
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ChartScreen()),
+                  );
+                },
+                child: Column(
+                  children: [
+                    Container(
+                      height: MediaQuery.of(context).size.height * 0.2,
                     ),
-                    height: MediaQuery.of(context).size.height * 0.2,
-                    width: MediaQuery.of(context).size.width * 0.9,
-                    decoration: const BoxDecoration(
-                        // make container opaque
+                    Container(
+                      padding: EdgeInsets.only(
+                        top: MediaQuery.of(context).size.height * 0.2,
+                      ),
+                      height: MediaQuery.of(context).size.height * 0.2,
+                      width: MediaQuery.of(context).size.width * 0.9,
+                      decoration: const BoxDecoration(
+                          // make container opaque
 
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
-                        gradient: LinearGradient(
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                          colors: [
-                            Color.fromARGB(255, 188, 219, 188),
-                            Color.fromARGB(255, 14, 83, 34),
-                          ],
-                        ),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey,
-                            blurRadius: 10.0,
-                            spreadRadius: 1.0,
-                            offset: Offset(4.0, 4.0),
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                          gradient: LinearGradient(
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                            colors: [
+                              Color.fromARGB(255, 188, 219, 188),
+                              Color.fromARGB(255, 14, 83, 34),
+                            ],
                           ),
-                        ]),
-                  ),
-                ],
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey,
+                              blurRadius: 10.0,
+                              spreadRadius: 1.0,
+                              offset: Offset(4.0, 4.0),
+                            ),
+                          ]),
+                    ),
+                  ],
+                ),
               ),
               Positioned(
                 top: MediaQuery.of(context).size.height * 0.25,
@@ -239,7 +250,11 @@ class _HomePageState extends State<HomePage> {
                     final static = box.get("static");
                     return Column(
                       children: [
-                        Text("remaining credit"),
+                        Text("remaining credit",
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 18,
+                            )),
                         Text(
                           "$static",
                           style: TextStyle(
